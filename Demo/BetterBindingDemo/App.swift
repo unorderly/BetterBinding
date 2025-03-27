@@ -26,28 +26,6 @@ struct ContentView: View {
 
     @State var flag: String? = nil
 
-    @State var elements1: [ToggleElements] = [
-        .init(id: "A", value: false),
-        .init(id: "B", value: true),
-        .init(id: "C", value: false),
-    ]
-
-    @State var elements2: [ToggleElements] = [
-        .init(id: "A", value: false),
-        .init(id: "B", value: true),
-        .init(id: "C", value: false),
-    ]
-
-    var elementsBinding: Binding<[ToggleElements]> {
-        flag != nil ? $elements1 : $elements2
-    }
-
-    @State var equatableBindingElements: [ToggleElements] = [
-        .init(id: "A", value: false),
-        .init(id: "B", value: true),
-        .init(id: "C", value: false),
-    ]
-
     struct ChangePrinter<Value: CustomDebugStringConvertible & Equatable>: Hashable {
         let prefix: String
         var willSet: (Value, Value) -> Void {
@@ -96,17 +74,6 @@ struct ContentView: View {
                 if let flag {
                     Text(flag)
                 }
-
-                Text("With `@Binding`")
-                ForEach(elementsBinding.wrappedValue) { element in
-                    EquatableBindingNestedToggle(title: element.id, isOn: elementsBinding.element(with: element.id).withDefault(element).value)
-                }
-
-                Text("With `@EquatableBinding`")
-                ForEach(equatableBindingElements) { element in
-                    EquatableBindingNestedToggle(title: element.id, isOn: $equatableBindingElements.element(with: element.id).withDefault(element).value)
-                }
-
             }
             .padding()
         }
@@ -121,7 +88,6 @@ struct NestedToggle: View {
     init(title: String, isOn binding: Binding<Bool>) {
         self._binding = binding
         self.title = title
-//        print("Nested init (title = \(title))")
     }
 
     var body: some View {
@@ -130,25 +96,6 @@ struct NestedToggle: View {
         Toggle(title, isOn: $binding)
     }
 }
-
-struct EquatableBindingNestedToggle: View {
-    var title: String
-    @EquatableBinding var binding: Bool
-
-
-    init(title: String, isOn binding: Binding<Bool>) {
-        self._binding = binding.equatable()
-        self.title = title
-//        print("Nested init (title = \(title))")
-    }
-
-    var body: some View {
-        let _ = print("Nested body (title = \(title))")
-        let _ = Self._printChanges()
-        Toggle(title, isOn: $binding)
-    }
-}
-
 
 #Preview {
     ContentView()
