@@ -17,7 +17,7 @@ extension Optional: _OptionalProtocol {
         self ?? defaultValue
     }
 
-    public init (_ wrapped: Wrapped) {
+    public init(_ wrapped: Wrapped) {
         self = wrapped
     }
 }

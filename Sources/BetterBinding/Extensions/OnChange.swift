@@ -27,10 +27,9 @@ public struct HashableClosure<Subject: Hashable, Value: Equatable>: Hashable {
     }
 
     public func callAsFunction(old: Value, new: Value) {
-        self.subject[keyPath: call](old, new)
+        self.subject[keyPath: self.call](old, new)
     }
 }
-
 
 extension Binding where Value: Equatable {
     /// Since closures can't be hashable, we need to do a huge workaround here. This is intentionally dificult to ensure it is not misused.
@@ -41,8 +40,8 @@ extension Binding where Value: Equatable {
     }
 }
 
-private extension Equatable {
-    subscript<Subject: Hashable>(onChange closure: HashableClosure<Subject, Self>) -> Self {
+extension Equatable {
+    fileprivate subscript<Subject: Hashable>(onChange closure: HashableClosure<Subject, Self>) -> Self {
         get { self }
         set {
             if newValue != self {

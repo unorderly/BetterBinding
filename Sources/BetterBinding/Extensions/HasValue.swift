@@ -15,8 +15,8 @@ extension Binding where Value: _OptionalProtocol {
     }
 }
 
-private extension _OptionalProtocol {
-    subscript(hasValueWithDefault defaultValue: Self) -> Bool {
+extension _OptionalProtocol {
+    fileprivate subscript(hasValueWithDefault defaultValue: Self) -> Bool {
         get {
             !self._isNil
         }
@@ -29,12 +29,12 @@ private extension _OptionalProtocol {
         }
     }
 
-    var hasValue: Bool {
+    fileprivate var hasValue: Bool {
         get {
             !self._isNil
         }
         set {
-            if !newValue && !self._isNil {
+            if !newValue, !self._isNil {
                 self = nil
             }
         }

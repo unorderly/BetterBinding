@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  BetterBindingDemo
-//
-//  Created by Leo Mehlig on 27.03.25.
-//
-
 import SwiftUI
 
 struct ContentView: View {

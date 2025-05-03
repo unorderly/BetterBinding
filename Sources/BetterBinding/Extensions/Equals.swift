@@ -6,8 +6,8 @@ extension Binding where Value: Hashable {
     }
 }
 
-private extension Equatable {
-    subscript(equals value: Self, defaultValue: Self) -> Bool {
+extension Equatable {
+    fileprivate subscript(equals value: Self, defaultValue: Self) -> Bool {
         get {
             self == value
         }

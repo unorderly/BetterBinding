@@ -1,12 +1,5 @@
-//
-//  BetterBindingDemoApp.swift
-//  BetterBindingDemo
-//
-//  Created by Leo Mehlig on 27.03.25.
-//
-
-import SwiftUI
 import BetterBinding
+import SwiftUI
 
 @main
 struct DemoApp: App {
@@ -21,6 +14,7 @@ struct ToggleElements: Identifiable, Hashable {
     let id: String
     var value: Bool
 }
+
 struct ContentView: View {
     @State var getSetFlag: String? = nil
 
@@ -29,8 +23,8 @@ struct ContentView: View {
     struct ChangePrinter<Value: CustomDebugStringConvertible & Equatable>: Hashable {
         let prefix: String
         var willSet: (Value, Value) -> Void {
-            return { old, new in
-                print(prefix, ">>> old: \(old), new: \(new)")
+            { old, new in
+                print(self.prefix, ">>> old: \(old), new: \(new)")
             }
         }
 
@@ -38,7 +32,6 @@ struct ContentView: View {
             .init(subject: .init(prefix: ""), call: \.willSet)
         }
     }
-
 
     var body: some View {
         let _ = print("ContentView body")
@@ -69,8 +62,7 @@ struct ContentView: View {
                     .font(.headline)
                 NestedToggle(title: "Flag", isOn: $flag
                     .onWillSet(ChangePrinter.closure)
-                    .hasValue(default: "Hello, World!")
-                    )
+                    .hasValue(default: "Hello, World!"))
                 if let flag {
                     Text(flag)
                 }
@@ -84,7 +76,6 @@ struct NestedToggle: View {
     var title: String
     @Binding var binding: Bool
 
-
     init(title: String, isOn binding: Binding<Bool>) {
         self._binding = binding
         self.title = title
@@ -93,7 +84,7 @@ struct NestedToggle: View {
     var body: some View {
         let _ = print("Nested body (title = \(title))")
         let _ = Self._printChanges()
-        Toggle(title, isOn: $binding)
+        Toggle(self.title, isOn: self.$binding)
     }
 }
 

@@ -6,8 +6,8 @@ extension Binding where Value: RangeReplaceableCollection, Value.Element: Identi
     }
 }
 
-private extension RangeReplaceableCollection where Element: Identifiable {
-    subscript(elementWithID id: Element.ID) -> Element? {
+extension RangeReplaceableCollection where Element: Identifiable {
+    fileprivate subscript(elementWithID id: Element.ID) -> Element? {
         get {
             self.first(where: { $0.id == id })
         }

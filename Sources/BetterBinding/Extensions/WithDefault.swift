@@ -7,8 +7,8 @@ extension Binding where Value: _OptionalProtocol, Value.Wrapped: Hashable {
     }
 }
 
-private extension _OptionalProtocol {
-    subscript(withDefault defaultValue: Self.Wrapped) -> Self.Wrapped {
+extension _OptionalProtocol {
+    fileprivate subscript(withDefault defaultValue: Self.Wrapped) -> Self.Wrapped {
         get {
             self.withFallback(defaultValue)
         }
@@ -17,4 +17,3 @@ private extension _OptionalProtocol {
         }
     }
 }
-
