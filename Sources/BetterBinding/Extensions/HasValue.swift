@@ -10,6 +10,12 @@ extension Binding where Value: _OptionalProtocol & Hashable {
 }
 
 extension Binding where Value: _OptionalProtocol {
+    /// Creates a binding that indicates whether the optional has a value.
+    /// 
+    /// When the returned binding is set to `false`, the underlying optional is set to `nil`.
+    /// When set to `true`, the underlying optional remains unchanged (it cannot create a value from nothing).
+    ///
+    /// - Returns: A binding that reflects whether the optional has a non-nil value.
     public func hasValue() -> Binding<Bool> {
         self.hasValue
     }

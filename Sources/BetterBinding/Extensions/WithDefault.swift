@@ -1,7 +1,14 @@
 import SwiftUI
 
 extension Binding where Value: _OptionalProtocol, Value.Wrapped: Hashable {
-    /// Unwraps a optional Binding, returning the `default`, if the receiver is `nil`. If the value of the receiver changes, it is always applied to the receiver.
+    /// Unwraps an optional binding, providing a default value when the binding is `nil`.
+    /// 
+    /// This creates a non-optional binding from an optional binding. When the underlying optional
+    /// is `nil`, the binding returns the default value. Any changes to the returned binding
+    /// are always applied to the underlying optional binding.
+    ///
+    /// - Parameter defaultValue: The value to use when the underlying binding is `nil`.
+    /// - Returns: A non-optional binding that uses the default value when the original is `nil`.
     public func withDefault(_ defaultValue: Value.Wrapped) -> Binding<Value.Wrapped> {
         self[withDefault: defaultValue]
     }
