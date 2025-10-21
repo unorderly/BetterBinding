@@ -16,9 +16,9 @@ struct ToggleElements: Identifiable, Hashable {
 }
 
 struct ContentView: View {
-    @State var getSetFlag: String? = nil
+    @State var getSetFlag: String?
 
-    @State var flag: String? = nil
+    @State var flag: String?
 
     struct ChangePrinter<Value: CustomDebugStringConvertible & Equatable>: Hashable {
         let prefix: String
