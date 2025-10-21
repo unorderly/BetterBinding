@@ -2,7 +2,7 @@ import SwiftUI
 
 extension Binding where Value: Hashable {
     /// Creates a binding that checks if the value equals a specific target value.
-    /// 
+    ///
     /// When the returned binding is set to `true`, the underlying value is set to the target value.
     /// When set to `false` and the current value equals the target value, it is set to the default value.
     ///

@@ -2,7 +2,7 @@ import SwiftUI
 
 extension Binding where Value: RangeReplaceableCollection, Value.Element: Identifiable {
     /// Creates a binding to a specific element in the collection identified by its ID.
-    /// 
+    ///
     /// The returned binding allows you to get, set, or remove an element from the collection.
     /// When the binding is set to a non-nil value, the element is either updated (if it exists)
     /// or appended (if it doesn't exist). When set to nil, the element is removed from the collection.

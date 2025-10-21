@@ -2,7 +2,7 @@ import SwiftUI
 
 extension Binding where Value: _OptionalProtocol {
     /// Creates a conditional binding that returns the value only when the condition is true.
-    /// 
+    ///
     /// When the condition is `true`, the binding returns the current value.
     /// When the condition is `false`, the binding returns `nil`.
     ///
@@ -15,7 +15,7 @@ extension Binding where Value: _OptionalProtocol {
 
 extension Binding where Value == Bool {
     /// Creates a conditional binding that performs a logical AND operation with the condition.
-    /// 
+    ///
     /// The returned binding's value is the result of `self && condition`.
     /// When setting the binding value, it directly updates the underlying boolean value.
     ///

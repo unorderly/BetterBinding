@@ -2,7 +2,7 @@ import SwiftUI
 
 extension Binding where Value: SetAlgebra, Value.Element: Hashable {
     /// Creates a binding that checks if the set contains a specific element.
-    /// 
+    ///
     /// When the returned binding is set to `true`, the element is inserted into the set.
     /// When set to `false`, the element is removed from the set.
     ///
@@ -15,7 +15,7 @@ extension Binding where Value: SetAlgebra, Value.Element: Hashable {
 
 extension Binding where Value: SetAlgebra, Value: Hashable {
     /// Creates a binding that checks if the set is empty.
-    /// 
+    ///
     /// When the returned binding is set to `true`, the set is cleared.
     /// When set to `false` and the set is empty, it is set to the default value.
     ///
@@ -28,7 +28,7 @@ extension Binding where Value: SetAlgebra, Value: Hashable {
 
 extension Binding where Value: RangeReplaceableCollection, Value: Hashable {
     /// Creates a binding that checks if the collection is empty.
-    /// 
+    ///
     /// When the returned binding is set to `true`, the collection is cleared.
     /// When set to `false` and the collection is empty, it is set to the default value.
     ///
