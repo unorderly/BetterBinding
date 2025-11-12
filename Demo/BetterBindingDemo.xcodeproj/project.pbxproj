@@ -10,7 +10,6 @@
 		B30F7D652D959AB100D5E249 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B30F7D612D959AB100D5E249 /* Assets.xcassets */; };
 		B30F7D662D959AB100D5E249 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30F7D622D959AB100D5E249 /* App.swift */; };
 		B30F7D6D2D959B0300D5E249 /* BetterBinding in Frameworks */ = {isa = PBXBuildFile; productRef = B30F7D6C2D959B0300D5E249 /* BetterBinding */; };
-		B30F7D942D959BC500D5E249 /* GetSetBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30F7D932D959BC500D5E249 /* GetSetBinding.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,7 +28,6 @@
 /* Begin PBXFileReference section */
 		B30F7D612D959AB100D5E249 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B30F7D622D959AB100D5E249 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
-		B30F7D932D959BC500D5E249 /* GetSetBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSetBinding.swift; sourceTree = "<group>"; };
 		B31A7B6E2D959A5F00ECD3FB /* BetterBindingDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BetterBindingDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -50,7 +48,6 @@
 			children = (
 				B30F7D612D959AB100D5E249 /* Assets.xcassets */,
 				B30F7D622D959AB100D5E249 /* App.swift */,
-				B30F7D932D959BC500D5E249 /* GetSetBinding.swift */,
 			);
 			path = BetterBindingDemo;
 			sourceTree = "<group>";
@@ -149,7 +146,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B30F7D662D959AB100D5E249 /* App.swift in Sources */,
-				B30F7D942D959BC500D5E249 /* GetSetBinding.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

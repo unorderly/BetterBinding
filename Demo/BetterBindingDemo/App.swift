@@ -10,62 +10,46 @@ struct DemoApp: App {
     }
 }
 
-struct ToggleElements: Identifiable, Hashable {
-    let id: String
-    var value: Bool
-}
-
 struct ContentView: View {
     @State var getSetFlag: String?
-
-    @State var flag: String?
-
-    struct ChangePrinter<Value: CustomDebugStringConvertible & Equatable>: Hashable {
-        let prefix: String
-        var willSet: (Value, Value) -> Void {
-            { old, new in
-                print(self.prefix, ">>> old: \(old), new: \(new)")
-            }
-        }
-
-        static var closure: HashableClosure<Self, Value> {
-            .init(subject: .init(prefix: ""), call: \.willSet)
-        }
-    }
+    @State var betterFlag: String?
+    @State var count: Int = 0
 
     var body: some View {
-        let _ = print("ContentView body")
+        let _ = print("ContentView body drawn")
         let _ = Self._printChanges()
         ScrollView {
             VStack(spacing: 20) {
-                Text("Using `Binding(get:set:)`")
-                    .font(.headline)
-                NestedToggle(title: "Get/Set Flag", isOn: Binding(get: { getSetFlag != nil }, set: { newValue in
-                    if newValue, getSetFlag == nil {
-                        getSetFlag = "Hello, World!"
-                    } else if !newValue, getSetFlag != nil {
-                        getSetFlag = nil
+                Text("BetterBinding Demo")
+                    .font(.title)
+                Text("BetterBinding only redraws when its value changes, whereas the Binding(get:set:) is recomputed and causes a redraw every time the containing view is redrawn.\n\nRandomize the count or toggle values to see how a change to a @State property of the containing view affects the bindings.\n\nEach toggle has a color which changes and is randomized on redraw.")
+                
+                Spacer()
+                
+                VStack(spacing: 20) {
+                    NestedToggle(title: "Binding(get:set:)", isOn: Binding(get: { getSetFlag != nil }, set: { newValue in
+                        if newValue, getSetFlag == nil {
+                            getSetFlag = "Hello, World!"
+                        } else if !newValue, getSetFlag != nil {
+                            getSetFlag = nil
+                        }
+                    }))
+                    
+                    NestedToggle(title: "BetterBinding", isOn: $betterFlag.hasValue(default: "Hello, World!"))
+                    
+                    Button("Randomize count") {
+                        count = Int.random(in: 0...100)
                     }
-                }))
-                if let getSetFlag {
-                    Text(getSetFlag)
+                    .buttonStyle(.borderedProminent)
+                    .controlSize(.large)
                 }
-
-                ForEach(elements1) { element in
-                    Text("\(element.id) - \(element.value)")
-                }
-                ForEach(elements2) { element in
-                    Text("\(element.id) - \(element.value)")
-                }
-
-                Text("Using `BetterBinding`")
-                    .font(.headline)
-                NestedToggle(title: "Flag", isOn: $flag
-                    .onWillSet(ChangePrinter.closure)
-                    .hasValue(default: "Hello, World!"))
-                if let flag {
-                    Text(flag)
-                }
+                .padding()
+                
+                Spacer()
+                
+                LabeledContent("getSetFlag:", value: getSetFlag ?? "nil")
+                LabeledContent("betterFlag:", value: betterFlag ?? "nil")
+                LabeledContent("count:", value: "\(count)")
             }
             .padding()
         }
@@ -82,9 +66,22 @@ struct NestedToggle: View {
     }
 
     var body: some View {
-        let _ = print("Nested body (title = \(title))")
+        let _ = print("NestedToggle(\(title)) body drawn")
         let _ = Self._printChanges()
-        Toggle(self.title, isOn: self.$binding)
+        HStack {
+            Circle().fill(Color.random).frame(height: 15)
+            Toggle(self.title, isOn: self.$binding)
+                .fontDesign(.monospaced)
+        }
+    }
+}
+
+extension Color {
+    static var random: Color {
+        let red = Double.random(in: 0...1)
+        let green = Double.random(in: 0...1)
+        let blue = Double.random(in: 0...1)
+        return Color(red: red, green: green, blue: blue)
     }
 }
 
