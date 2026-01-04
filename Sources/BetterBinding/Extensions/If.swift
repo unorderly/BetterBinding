@@ -11,6 +11,19 @@ extension Binding where Value: _OptionalProtocol {
     public func `if`(_ condition: Bool) -> Self {
         self[ifTrue: condition]
     }
+    
+    /// Creates a conditional binding that returns the value only when a property matches a specific value.
+    ///
+    /// When the property at the key path equals the specified value, the binding returns the current value.
+    /// When the property doesn't match (or the value is `nil`), the binding returns `nil`.
+    ///
+    /// - Parameters:
+    ///   - keyPath: The key path to a property on the wrapped value to compare.
+    ///   - value: The value to match against the property.
+    /// - Returns: A binding that conditionally exposes the value based on the property match.
+    public func `if`<KeyPathValue: Hashable>(_ keyPath: KeyPath<Value.Wrapped, KeyPathValue>, matches value: KeyPathValue) -> Self {
+        self[ifKeyPath: keyPath, matches: value]
+    }
 }
 
 extension Binding where Value == Bool {
@@ -41,6 +54,19 @@ extension _OptionalProtocol {
     fileprivate subscript(ifTrue condition: Bool) -> Self {
         get {
             if condition {
+                self
+            } else {
+                nil
+            }
+        }
+        set {
+            self = newValue
+        }
+    }
+
+    fileprivate subscript<Value: Hashable>(ifKeyPath keyPath: KeyPath<Self.Wrapped, Value>, matches value: Value) -> Self {
+        get {
+            if let unwrapped = self.wrapped, unwrapped[keyPath: keyPath] == value {
                 self
             } else {
                 nil

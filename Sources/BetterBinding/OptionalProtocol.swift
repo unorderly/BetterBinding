@@ -9,6 +9,8 @@ public protocol _OptionalProtocol: ExpressibleByNilLiteral {
     func withFallback(_ defaultValue: Wrapped) -> Wrapped
 
     init(_ wrapped: Wrapped)
+
+    var wrapped: Wrapped? { get }
 }
 
 extension Optional: _OptionalProtocol {
@@ -20,4 +22,6 @@ extension Optional: _OptionalProtocol {
     public init(_ wrapped: Wrapped) {
         self = wrapped
     }
+
+    public var wrapped: Wrapped? { self }
 }
