@@ -13,6 +13,19 @@ extension Binding where Value: SetAlgebra, Value.Element: Hashable {
     }
 }
 
+extension Binding where Value: RangeReplaceableCollection, Value.Element: Hashable {
+    /// Creates a binding that checks if the collection contains a specific element.
+    ///
+    /// When the returned binding is set to `true`, the element is append into the collection.
+    /// When set to `false`, the all instances of the element are removed from the collection.
+    ///
+    /// - Parameter element: The element to check for membership in the collection.
+    /// - Returns: A binding that reflects whether the element is contained in the collection.
+    public func contains(_ element: Value.Element) -> Binding<Bool> {
+        self[contains: element]
+    }
+}
+
 extension Binding where Value: SetAlgebra, Value: Hashable {
     /// Creates a binding that checks if the set is empty.
     ///
@@ -87,6 +100,24 @@ extension SetAlgebra {
                 if self.isEmpty {
                     self = defaultValue
                 }
+            }
+        }
+    }
+}
+
+extension RangeReplaceableCollection where Element: Hashable {
+    fileprivate subscript(contains element: Self.Element) -> Bool {
+        get {
+            self.contains(element)
+        }
+        set {
+            guard self.contains(element) != newValue else {
+                return
+            }
+            if newValue {
+                self.append(element)
+            } else {
+                self.removeAll(where: { $0 == element })
             }
         }
     }
